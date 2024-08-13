@@ -1,7 +1,9 @@
 import MenuItem from "./components/MenuItem"
 import { menuItems } from "./data/db"
-function App() {
+import useOrder from "./hooks/useOrder"
 
+function App() {
+  const {addItem} = useOrder()//no se le pasa ningun argumento pero se extrae addItem de useOrder
   //Fragment
   return (
     <>
@@ -17,6 +19,7 @@ function App() {
               <MenuItem //Siempre que itero necesito un id unico osea un key
                 key={item.id}
                 item={item}//item y objeto de item
+                addItem={addItem}
               />
           ))}
           </div>

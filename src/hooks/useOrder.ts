@@ -7,9 +7,22 @@ export default function useOrder(){
     //const [total,setTotal] = useState<number>(0)--de este modo no es necesario el generic
 
     const addItem = (item:MenuItem) =>{//addItem es un funcion y la exportamos en return
-        console.log(item)
-    }
+        const itemExist = order.find(orderItem =>orderItem.id === item.id)//Una const que busca por cada elemento del state order su id y que sea igual que el item que le estamos pasando item.id
+        if(itemExist){
+            //map te retorna un nuevo arreglo modificado
+            const updateOrder = order.map(orderItem=> orderItem.id === item.id ? 
+                {...orderItem, quantity: orderItem.quantity + 1}://Toma lo que tenemos en cantidad y le agrega uno
+                 orderItem) 
+                 setOrder(updateOrder)
+        }else{
+            const newItem = {...item, quantity:1}
+            setOrder([...order,newItem])
 
+        }
+        
+
+    }
+    console.log(order)
     return{
         addItem
     }

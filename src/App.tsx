@@ -1,10 +1,12 @@
 import MenuItem from "./components/MenuItem"
 import OrderContents from "./components/OrderContents"
+import OrderTotals from "./components/OrderTotals"
+import TipPercentageForm from "./components/TipPercentageForm"
 import { menuItems } from "./data/db"
 import useOrder from "./hooks/useOrder"
 
 function App() {
-  const {order, addItem} = useOrder()//no se le pasa ningun argumento pero se extrae addItem de useOrder
+  const {order, addItem, removeItem, tip, setTip} = useOrder()//no se le pasa ningun argumento pero se extrae addItem de useOrder
   //Fragment
   return (
     <>
@@ -18,16 +20,25 @@ function App() {
             {menuItems.map(item=>(
               //Para hacer dinamico nuestro componente MenuItem- Para eso tenemos que pasarle el prop a MenuItem con este objeto item
               <MenuItem //Siempre que itero necesito un id unico osea un key
-                key={item.id}
-                item={item}//item y objeto de item
-                addItem={addItem}
+                  key={item.id}
+                  item={item}//item y objeto de item
+                  addItem={addItem}
               />
           ))}
           </div>
         </div>
         <div className="border border-dashed border-slate-300 p-5 rounded-lg space-y-10">
           <OrderContents
-          order={order}
+            order={order}
+            removeItem={removeItem}
+          />
+          <TipPercentageForm
+            setTip={setTip}
+          />
+
+          <OrderTotals
+            order={order}
+            tip={tip}
           />
         </div>
       </main>

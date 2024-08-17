@@ -18,27 +18,29 @@ const tipOptions = [
   ]
 
 type TipPercentageFormProps ={
-    setTip:Dispatch<SetStateAction<number>>
+    setTip:Dispatch<SetStateAction<number>>,
+    tip:number
 }
 
-export default function TipPercentageForm({setTip}:TipPercentageFormProps) {
+export default function TipPercentageForm({setTip,tip}:TipPercentageFormProps) {
   return (
     <div>
         <h3 className="font-black text-2xl">Propina:</h3>
         <form>
             {/* Me genera un div por cada opcion*/}
-            {tipOptions.map(tip => (
+            {tipOptions.map(tipOption => (
 
-                <div key={tip.id} className="flex gap-2">
+                <div key={tipOption.id} className="flex gap-2">
                     {/* el htmlFor hace que se conecte con el input el label*/}
-                    <label htmlFor={tip.id}>{tip.label} </label>
+                    <label htmlFor={tipOption.id}>{tipOption.label} </label>
                     <input 
-                        id={tip.id}
+                        id={tipOption.id}
                         type="radio"
                         // definimos el name y su value para que no pueda elegir mas de una opcion 
                         name="tip"
-                        value={tip.value}
+                        value={tipOption.value}
                         onChange={e =>setTip(+e.target.value)}//la opcion de ValueAsNumber no cambia los de tipo radio---Parsefloat(e.target.value) funciona correctamente tambien
+                        checked={tipOption.value ===tip}
                     />
                 </div>
 

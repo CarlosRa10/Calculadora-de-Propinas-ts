@@ -5,14 +5,16 @@ import { OrderItem } from "../types"
 // //se puede crear componente con el atajo rfc
 type  OrderTotalsProps={
     order : OrderItem[],
-    tip : number
+    tip : number,
+    placeOrder : () => void
 }
 
-export default function OrderTotals({order,tip}:OrderTotalsProps) {
+export default function OrderTotals({order,tip, placeOrder}:OrderTotalsProps) {
 //useMemo te permite que unicamente se renderice o se vuelva a ejecutar este codigo cuando cambie la dependencia-order-.....reduce(acumulador,valoractual)
     const subtotalAmount = useMemo(()=> order.reduce((total,item)=>total+(item.quantity*item.price),0),[order])
     const tipAmount = useMemo(()=>subtotalAmount*tip,[tip,order])
-
+    const totalAmount = useMemo(()=>subtotalAmount+tipAmount,[tip,order])
+    
   return (
     <>
         <div className="space-y-3">
@@ -24,10 +26,16 @@ export default function OrderTotals({order,tip}:OrderTotalsProps) {
                 <span className="font-bold">{formatCurrency(tipAmount)} </span>
             </p>
             <p>Total a Pagar:{' '}
-                <span className="font-bold">$0</span>
+                <span className="font-bold">{formatCurrency(totalAmount)} </span>
             </p>
         </div>
-        <button></button>
+        <button 
+            className="w-full bg-black p-3 uppercase text-white font-bold mt-10 disabled:opacity-10 "
+            disabled={totalAmount===0}
+            onClick={placeOrder}
+        >
+            Guardar Orden
+        </button>
     
     </>
   )

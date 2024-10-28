@@ -4,7 +4,7 @@ import OrderTotals from "./components/OrderTotals"
 import TipPercentageForm from "./components/TipPercentageForm"
 import { menuItems } from "./data/db"
 import useOrder from "./hooks/useOrder"
-//listo
+
 function App() {
   const {order,tip, setTip, addItem, removeItem, placeOrder} = useOrder()//no se le pasa ningun argumento pero se extrae addItem de useOrder
   //Fragment
